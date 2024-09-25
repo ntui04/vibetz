@@ -18,6 +18,22 @@
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
+            <nav>
+                <ul>
+                    @auth
+                        @if (Auth::user()->role === 'admin')
+                            <li><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
+                        @else
+                            <li><a href="{{ route('dashboard') }}">User Dashboard</a></li>
+                        @endif
+                    @else
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('register') }}">Register</a></li>
+                    @endauth
+                </ul>
+            </nav>
+            
+
             <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white dark:bg-gray-800 shadow">
