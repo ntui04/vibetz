@@ -2,63 +2,92 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Music;
 use Illuminate\Http\Request;
 
 class MusicController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $music = Music::all();
+        return view('music.index', compact('music'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('music.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Manual validation logic
+        // dd($request);
+       $music = new Music();
+       $music->title = $request->title;
+       $music->artist = $request->artist;
+       $music->album = $request->album;
+       $music->genre = $request->genre;
+
+
+       if($request->hasFile('audio')){
+        $path = $request->file('audio')->store('audio', 'public');
+        // dd($request->file('audio'));
+        $music->audio = $path;
+       }
+
+        $music->save();
+
+        return redirect('/posts')->with('success', 'Music added successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $music = Music::findOrFail($id);
+        return view('music.show', compact('music'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $music = Music::findOrFail($id);
+        return view('music.edit', compact('music'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Find the music record
+        $music = Music::findOrFail($id);
+
+        // Manual validation logic
+        if (!$request->filled('title') || !$request->filled('artist')) {
+            return redirect()->back()->withErrors(['Title and Artist are required.']);
+        }
+
+        if ($request->hasFile('media')) {
+            $file = $request->file('media');
+            if (!in_array($file->getClientOriginalExtension(), ['mp3', 'wav'])) {
+                return redirect()->back()->withErrors(['Invalid media type. Only MP3 and WAV are allowed.']);
+            }
+
+            $mediaPath = $file->store('music', 'public');
+        }
+
+        // Update the music data
+        $music->update([
+            'title' => $request->input('title'),
+            'artist' => $request->input('artist'),
+            'album' => $request->input('album'),
+            'genre' => $request->input('genre'),
+            'media' => $mediaPath ?? $music->media,  // Keep existing media if not updated
+        ]);
+
+        return redirect()->route('music.index')->with('success', 'Music updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $music = Music::findOrFail($id);
+        $music->delete();
+
+        return redirect()->route('music.index')->with('success', 'Music deleted successfully!');
     }
 }

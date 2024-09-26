@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('music', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('artist');
+            $table->string('album')->nullable();
+            $table->string('genre')->nullable();
+            $table->string('audio')->nullable(); // For storing audio files
             $table->timestamps();
         });
     }

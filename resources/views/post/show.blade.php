@@ -18,7 +18,7 @@
             <a href="#" class="text-white text-2xl font-bold">VibeTZ</a>
             <ul class="flex space-x-4">
                 <li><a href="{{ route('posts.index') }}" class="text-white hover:underline">Posts</a></li>
-                <li><a href="/posts/create" class="text-white hover:underline">About</a></li>
+                <li><a href="/post/create" class="text-white hover:underline">Add post</a></li>
                 <li><a href="#" class="text-white hover:underline">Contact</a></li>
                 <li><a href="#" class="text-white hover:underline">Login</a></li>
             </ul>
