@@ -13,6 +13,29 @@ class MusicController extends Controller
         return view('music.index', compact('music'));
     }
 
+    public function index2()
+    {
+
+        $music = Music::all();
+        return view('music.show', compact('music'));
+    }
+
+    public function search(Request $request)
+    {
+        // dd($request);
+        $query = $request->input('query');
+
+        // Query the database to search for tracks that match the query
+        $music = Music::where('title', 'LIKE', "%$query%")
+            ->orWhere('artist', 'LIKE', "%$query%")
+            ->orWhere('album', 'LIKE', "%$query%")
+            ->orWhere('genre', 'LIKE', "%$query%")
+            ->get();
+
+        // Return the results to the view
+        return view('music.search', compact('music'));
+    }
+
     public function create()
     {
         return view('music.create');
@@ -22,18 +45,18 @@ class MusicController extends Controller
     {
         // Manual validation logic
         // dd($request);
-       $music = new Music();
-       $music->title = $request->title;
-       $music->artist = $request->artist;
-       $music->album = $request->album;
-       $music->genre = $request->genre;
+        $music = new Music();
+        $music->title = $request->title;
+        $music->artist = $request->artist;
+        $music->album = $request->album;
+        $music->genre = $request->genre;
 
 
-       if($request->hasFile('audio')){
-        $path = $request->file('audio')->store('audio', 'public');
-        // dd($request->file('audio'));
-        $music->audio = $path;
-       }
+        if ($request->hasFile('audio')) {
+            $path = $request->file('audio')->store('audio', 'public');
+            // dd($request->file('audio'));
+            $music->audio = $path;
+        }
 
         $music->save();
 
@@ -43,6 +66,7 @@ class MusicController extends Controller
     public function show($id)
     {
         $music = Music::findOrFail($id);
+
         return view('music.show', compact('music'));
     }
 

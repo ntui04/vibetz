@@ -15,7 +15,7 @@
      <!-- Navigation Bar -->
      <nav class="bg-blue-500 p-4">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-white text-2xl font-bold">VibeTZ</a>
+            <a href="/" class="text-white text-2xl font-bold">VibeTZ</a>
             <ul class="flex space-x-4">
                 <li><a href="{{ route('posts.index') }}" class="text-white hover:underline">Posts</a></li>
                 <li><a href="/post/create" class="text-white hover:underline">Add post</a></li>

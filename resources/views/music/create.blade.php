@@ -55,7 +55,7 @@
         </form>
 
         <div class="mt-10">
-            <a href="#"
+            <a href="/musics"
                 class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
                 back to available audios
             </a>

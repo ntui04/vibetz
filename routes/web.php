@@ -55,13 +55,15 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.
 //music
 
 
-Route::get('/music', [MusicController::class, 'index'])->name('music.index'); // List all music
+Route::get('/music', [MusicController::class, 'index'])->name('music.index'); // List all music with table
+Route::get('/musics', [MusicController::class, 'index2'])->name('music.index'); // List all music no table
 Route::get('/music/create', [MusicController::class, 'create'])->name('music.create'); // Form to create new music
 Route::post('/music', [MusicController::class, 'store'])->name('music.store'); // Store new music
 
 Route::get('/music/{id}', [MusicController::class, 'show'])->name('music.show'); // Show a single music item
 Route::get('/music/{id}/edit', [MusicController::class, 'edit'])->name('music.edit'); // Edit a music item
 Route::put('/music/{id}', [MusicController::class, 'update'])->name('music.update'); // Update a music item
+Route::get('/music/search', [MusicController::class, 'search'])->name('music.search');
 
 Route::delete('/music/{id}', [MusicController::class, 'destroy'])->name('music.destroy'); // Delete a music item
 
