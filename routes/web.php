@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SearchController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -68,6 +69,6 @@ Route::get('/music/search', [MusicController::class, 'search'])->name('music.sea
 Route::delete('/music/{id}', [MusicController::class, 'destroy'])->name('music.destroy'); // Delete a music item
 
 
-
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 require __DIR__.'/auth.php';

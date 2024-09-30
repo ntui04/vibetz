@@ -33,7 +33,7 @@
         </p>
 
         <!-- Search Bar in Hero Section -->
-        <form action="{{ route('music.search') }}" method="GET" class="text-center">
+        <form action="{{ route('search') }}" method="GET" class="text-center">
             <input type="text" name="query" placeholder="Search music, posts, or videos..."
                 class="w-full sm:w-1/2 p-3 border rounded-md">
             <button type="submit"

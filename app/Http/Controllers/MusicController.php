@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Music;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class MusicController extends Controller
@@ -20,21 +21,7 @@ class MusicController extends Controller
         return view('music.show', compact('music'));
     }
 
-    public function search(Request $request)
-    {
-        // dd($request);
-        $query = $request->input('query');
 
-        // Query the database to search for tracks that match the query
-        $music = Music::where('title', 'LIKE', "%$query%")
-            ->orWhere('artist', 'LIKE', "%$query%")
-            ->orWhere('album', 'LIKE', "%$query%")
-            ->orWhere('genre', 'LIKE', "%$query%")
-            ->get();
-
-        // Return the results to the view
-        return view('music.search', compact('music'));
-    }
 
     public function create()
     {
