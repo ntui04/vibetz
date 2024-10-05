@@ -21,6 +21,13 @@ class MusicController extends Controller
         return view('music.show', compact('music'));
     }
 
+    public function manage() {
+        
+        $music = Music::paginate(6);
+
+        return view('music.manage', compact('music'));
+    }
+
 
 
     public function create()

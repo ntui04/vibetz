@@ -14,6 +14,12 @@ class PostController extends Controller
         return view('post.show', compact('posts'));
     }
 
+    public function manage()
+    {
+        $posts = Post::paginate(6);
+        return view('post.manage', compact('posts'));
+    }
+
     public function show($id)
     {
         $post = Post::findOrFail($id); // Find the post by its ID, or return a 404 if not found
@@ -21,9 +27,12 @@ class PostController extends Controller
         return view('post.post', compact('post')); // Return a view and pass the post data
     }
 
+    
+
 
     public function createPost()
     {
+
         return view('post.create');
     }
 
@@ -41,7 +50,7 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+        return redirect('/admin')->with('success', 'Post created successfully.');
     }
 
     public function update(Request $request, $id)
