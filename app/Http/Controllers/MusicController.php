@@ -98,7 +98,7 @@ class MusicController extends Controller
             'media' => $mediaPath ?? $music->media,  // Keep existing media if not updated
         ]);
 
-        return redirect()->route('music.index')->with('success', 'Music updated successfully!');
+        return redirect('/dashboard')->with('success', 'Music updated successfully!');
     }
 
     public function destroy($id)
