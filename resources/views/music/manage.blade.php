@@ -77,7 +77,7 @@
                                         </td> <!-- Display audio player if available -->
                                         <td class="border px-4 py-2">{{ $track->created_at }}</td>
                                         <td class="border px-4 py-2">
-                                            <a href="#" class="text-blue-600">Edit</a>
+                                            <a href="{{ route('music.edit', $track->id)}}" class="text-blue-600">Edit</a>
                                             <form action="#" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')

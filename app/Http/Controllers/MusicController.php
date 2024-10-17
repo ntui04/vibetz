@@ -16,8 +16,9 @@ class MusicController extends Controller
 
     public function index2()
     {
-
         $music = Music::all();
+        // dd($music);
+
         return view('music.show', compact('music'));
     }
 
@@ -44,6 +45,7 @@ class MusicController extends Controller
         $music->artist = $request->artist;
         $music->album = $request->album;
         $music->genre = $request->genre;
+        $music->audio = $request->audio;
 
 
         if ($request->hasFile('audio')) {

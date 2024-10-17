@@ -58,6 +58,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->title = $request->title;
         $post->content = $request->content;
+        $post->media = $request->media;
 
         // Handle media file upload
         if ($request->hasFile('media')) {
