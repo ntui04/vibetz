@@ -20,6 +20,12 @@ class PostController extends Controller
         return view('post.manage', compact('posts'));
     }
 
+    public function edit($id){
+
+        $post  = Post::findOrFail($id);
+        return view('post.edit', compact('post'));
+    }
+
     public function show($id)
     {
         $post = Post::findOrFail($id); // Find the post by its ID, or return a 404 if not found
@@ -55,26 +61,35 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Find the post by ID
         $post = Post::findOrFail($id);
+    
+        // Update the title and content
         $post->title = $request->title;
         $post->content = $request->content;
-        $post->media = $request->media;
-
-        // Handle media file upload
+    
+        // Check if a new media file is uploaded
         if ($request->hasFile('media')) {
+            // Store the new media file and update the media path
             $path = $request->file('media')->store('media', 'public');
-            $post->media_url = $path;
+            $post->media = $path;
+        } else {
+            // Retain the existing media if no new file is uploaded
+            $post->media = $post->media; // This ensures the old media is retained
         }
-
+    
+        // Save the updated post
         $post->save();
-
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+    
+        // Redirect with a success message
+        return redirect('manage/post')->with('success', 'Post updated successfully.');
     }
+    
 
 
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->route('posts.index');
+        return redirect('manage/post');
     }
 }

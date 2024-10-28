@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Music;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MusicController extends Controller
 {
@@ -38,7 +39,8 @@ class MusicController extends Controller
 
     public function store(Request $request)
     {
-        // Manual validation logic
+       
+        
         // dd($request);
         $music = new Music();
         $music->title = $request->title;
@@ -101,6 +103,19 @@ class MusicController extends Controller
         ]);
 
         return redirect('/dashboard')->with('success', 'Music updated successfully!');
+    }
+
+     public function download($id)
+    {
+        $music = Music::findOrFail($id);
+
+        // Check if the file exists in the public storage
+        if (Storage::disk('public')->exists($music->audio)) {
+            // Download the file
+            return response()->download(storage_path('app/public/' . $music->audio));
+        }
+
+        return redirect()->back()->withErrors(['File not found.']);
     }
 
     public function destroy($id)

@@ -18,9 +18,9 @@
             <a href="/" class="text-white text-2xl font-bold">VibeTZ</a>
             <ul class="flex space-x-4">
                 <li><a href="{{ route('music.index') }}" class="text-white hover:underline">Music</a></li>
-                <li><a href="/music/create" class="text-white hover:underline">Add Music</a></li>
+                <li><a href="#" class="text-white hover:underline">Add Music</a></li>
                 <li><a href="#" class="text-white hover:underline">Contact</a></li>
-                <li><a href="#" class="text-white hover:underline">Login</a></li>
+                
             </ul>
         </div>
     </nav>
@@ -51,9 +51,9 @@
                         @endif
 
                         <!-- View More or Download Button -->
-                        <a href="{{ route('music.show', $track->id) }}"
+                        <a href="{{ route('music.download', $track->id) }}"
                             class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
-                            View / Download
+                             Download
                         </a>
                     </div>
                 @endforeach
